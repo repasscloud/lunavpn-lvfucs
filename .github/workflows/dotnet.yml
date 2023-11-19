@@ -31,11 +31,11 @@ jobs:
       - name: Build Linux x64 single binary and test
         run: |
           dotnet publish -c Release -r linux-x64 -p:PublishSingleFile=true --self-contained true
-          bin/Release/net6.0/linux-x64/publish/lvfucs --version
-          bin/Release/net6.0/linux-x64/publish/lvfucs --help
+          bin/Release/*/linux-x64/publish/lvfucs --version
+          bin/Release/*/linux-x64/publish/lvfucs --help
 
       - name: Build Alpine Linux x64 single binary and test
         run: |
           dotnet publish -c Release -r linux-musl-x64 -p:PublishSingleFile=true --self-contained true
-          bin/Release/net6.0/linux-musl-x64/publish/lvfucs --version
-          bin/Release/net6.0/linux-musl-x64/publish/lvfucs --help
+          bin/Release/*/linux-musl-x64/publish/lvfucs --version
+          bin/Release/*/linux-musl-x64/publish/lvfucs --help
