@@ -56,7 +56,9 @@ jobs:
         run: find . -name "lvfucs" -type f
 
       - name: Test
-        run: ./bin/Release/net6.0/linux-musl-x64/publish/lvfucs --help
+        run: |
+          chmod +x ./bin/Release/net6.0/linux-musl-x64/publish/lvfucs
+          ./bin/Release/net6.0/linux-musl-x64/publish/lvfucs --help
   
   release:
     runs-on: ubuntu-latest
