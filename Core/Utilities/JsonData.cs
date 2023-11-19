@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Net;
+﻿using System.Net;
 using System.Net.Sockets;
 using System.Text.Json;
 using lvfucs.Core.Models;
@@ -9,7 +8,6 @@ namespace lvfucs.Core.Utilities
 {
 	public class JsonData
 	{
-        [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicMethods)]
         public static void GenerateJson(string filePath)
 		{
             // create empty LunaJson object
