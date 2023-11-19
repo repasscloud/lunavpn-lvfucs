@@ -35,7 +35,7 @@ jobs:
         run: dotnet publish -c Release -r linux-musl-x64 -p:PublishSingleFile=true --self-contained true
 
   dotnet-6-linux-musl:
-    runs-on: ubuntu-latest
+    runs-on: alpine-latest
     needs: build
     steps:
       - name: Checkout repository
