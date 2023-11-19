@@ -1,0 +1,35 @@
+name: Build with .NET Versions
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        dotnet-version: ["6.0.x", "7.0.x", "8.0.x"]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+
+      - name: Restore dependencies
+        run: dotnet restore
+    
+      - name: Build
+        run: dotnet build --no-restore
+    
+      - name: Build Linux x64 single binary
+        run: dotnet publish -c Release -r linux-x64 -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true
+
+      - name: Build Alpine Linux x64 single binary
+        run: dotnet publish -c Release -r linux-musl-x64 -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true
