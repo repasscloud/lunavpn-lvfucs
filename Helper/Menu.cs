@@ -24,7 +24,7 @@
         public static void PrintVersion()
         {
             Console.WriteLine("###################################################");
-            Console.WriteLine("#             LunaVPN fu vX.X.X C#                 #");
+            Console.WriteLine("#             LunaVPN fu vX.X.X C#                #");
             Console.WriteLine("###################################################\n");
             Console.WriteLine("Welcome to LunaVPN fu - Your Functioning Unit for networking needs!");
             Console.WriteLine("C# Edition");
