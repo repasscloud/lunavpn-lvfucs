@@ -57,8 +57,22 @@ jobs:
 
       - name: Test
         run: |
-          chmod +x ./bin/Release/net6.0/linux-musl-x64/publish/lvfucs
-          ./bin/Release/net6.0/linux-musl-x64/publish/lvfucs --help
+          # Find the file and store its path in a variable
+          FILE_PATH=$(find . -name "lvfucs" -type f)
+          
+          # Print the file path for debugging
+          echo "File Path: $FILE_PATH"
+          
+          # Check if the file path is not empty
+          if [ -n "$FILE_PATH" ]; then
+            # Make the file executable
+            chmod +x "$FILE_PATH"
+            
+            # Execute the command
+            "$FILE_PATH" --help
+          else
+            echo "File not found."
+          fi
   
   release:
     runs-on: ubuntu-latest
