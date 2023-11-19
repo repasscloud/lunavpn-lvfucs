@@ -37,6 +37,7 @@ jobs:
 
   dotnet-6-linux-musl:
     runs-on: ubuntu-latest
+    needs: build
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -44,7 +45,7 @@ jobs:
       - name: Read version_info
         id: version
         run: |
-          VERSION_INFO=$(cat version_info)
+          VERSION_INFO=$(cat VERSION_INFO)
           echo "Version Info: $VERSION_INFO"
           echo "::set-output name=version::$VERSION_INFO"
 
