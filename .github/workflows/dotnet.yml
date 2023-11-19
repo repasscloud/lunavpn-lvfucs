@@ -29,13 +29,13 @@ jobs:
         run: dotnet build --no-restore
     
       - name: Build Linux x64 single binary and test
-        run: |
-          dotnet publish -c Release -r linux-x64 -p:PublishSingleFile=true --self-contained true
-          bin/Release/*/linux-x64/publish/lvfucs --version
-          bin/Release/*/linux-x64/publish/lvfucs --help
+        run: dotnet publish -c Release -r linux-x64 -p:PublishSingleFile=true --self-contained true
 
       - name: Build Alpine Linux x64 single binary and test
-        run: |
-          dotnet publish -c Release -r linux-musl-x64 -p:PublishSingleFile=true --self-contained true
-          bin/Release/*/linux-musl-x64/publish/lvfucs --version
-          bin/Release/*/linux-musl-x64/publish/lvfucs --help
+        run: dotnet publish -c Release -r linux-musl-x64 -p:PublishSingleFile=true --self-contained true
+
+      - name: Install tree
+        run: sudo apt -y update && sudo apt -y install tree
+      
+      - name: tree
+        run: tree
