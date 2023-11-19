@@ -6,25 +6,9 @@ on:
       - main
 
 jobs:
-  musl:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      
-      - name: Docker build
-        run: docker build --no-cache --rm -t your-image-name .
-
-      - name: dotnet publish
-        run: |
-          docker run --rm -v "$PWD:/app" your-image-name dotnet publish -c Release -r linux-musl-x64 -p:PublishSingleFile=true --self-contained true
-
-      - name: Show version
-        run: docker run --rm -v "$PWD:/app" your-image-name /app/bin/Release/net6.0/linux-musl-x64/publish/lvfucs --version
 
   build:
     runs-on: ubuntu-latest
-    needs: musl
     strategy:
       matrix:
         dotnet-version: ["6.0.x", "7.0.x", "8.0.x"]
@@ -50,83 +34,68 @@ jobs:
       - name: Build linux-musl-x64 binary
         run: dotnet publish -c Release -r linux-musl-x64 -p:PublishSingleFile=true --self-contained true
 
-  # dotnet-6-linux-musl:
-  #   runs-on: alpine-latest
-  #   needs: build
-  #   steps:
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v3
 
-  #     - name: Setup .NET
-  #       uses: actions/setup-dotnet@v3
-  #       with:
-  #         dotnet-version: 6.0.x
+  dotnet-6-linux-musl:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-  #     - name: Restore dependencies
-  #       run: dotnet restore
-    
-  #     - name: Build linux-musl-x64 binary
-  #       run: dotnet publish -c Release -r linux-musl-x64 -p:PublishSingleFile=true --self-contained true
+      - name: Read version_info
+        id: version
+        run: |
+          VERSION_INFO=$(cat version_info)
+          echo "Version Info: $VERSION_INFO"
+          echo "::set-output name=version::$VERSION_INFO"
+
+      - name: Update version in .cs files
+        run: |
+          find . -type f -name "*.cs" -exec sed -i "s/vX\.X\.X/v${{ steps.read-version.outputs.version }}/g" {} +
       
-  #     - name: Find
-  #       run: find . -name "lvfucs" -type f
+      - name: Docker build
+        run: docker build --no-cache --rm -t your-image-name .
 
-  #     - name: Test
-  #       run: |
-  #         # Find the file and store its path in a variable
-  #         FILE_PATH=$(find . -name "lvfucs" -type f)
-          
-  #         # Print the file path for debugging
-  #         echo "File Path: $FILE_PATH"
-          
-  #         # Check if the file path is not empty
-  #         if [ -n "$FILE_PATH" ]; then
-  #           # Make the file executable
-  #           chmod +x "$FILE_PATH"
-            
-  #           # Execute the command
-  #           "$FILE_PATH" --help
-  #         else
-  #           echo "File not found."
-  #         fi
+      - name: dotnet publish
+        run: |
+          docker run --rm -v "$PWD:/app" your-image-name dotnet publish -c Release -r linux-musl-x64 -p:PublishSingleFile=true --self-contained true
+
+      - name: Show version
+        run: docker run --rm -v "$PWD:/app" your-image-name /app/bin/Release/net6.0/linux-musl-x64/publish/lvfucs --version
   
-  # release:
-  #   runs-on: ubuntu-latest
-  #   needs: dotnet-6-linux-musl
-  #   steps:
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v3
+  release:
+    runs-on: ubuntu-latest
+    needs: dotnet-6-linux-musl
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-  #     - name: Setup .NET
-  #       uses: actions/setup-dotnet@v3
-  #       with:
-  #         dotnet-version: 6.0.x
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x
       
-  #     - name: Read version_info
-  #       id: version
-  #       run: |
-  #         VERSION_INFO=$(cat version_info)
-  #         echo "Version Info: $VERSION_INFO"
-  #         echo "::set-output name=version::$VERSION_INFO"
+      - name: Read version_info
+        id: version
+        run: |
+          VERSION_INFO=$(cat version_info)
+          echo "Version Info: $VERSION_INFO"
+          echo "::set-output name=version::$VERSION_INFO"
 
-  #     - name: Update version in .cs files
-  #       run: |
-  #         find . -type f -name "*.cs" -exec sed -i "s/vX\.X\.X/v${{ steps.read-version.outputs.version }}/g" {} +
+      - name: Update version in .cs files
+        run: |
+          find . -type f -name "*.cs" -exec sed -i "s/vX\.X\.X/v${{ steps.read-version.outputs.version }}/g" {} +
 
-  #     - name: Restore dependencies
-  #       run: dotnet restore
+      - name: Restore dependencies
+        run: dotnet restore
     
-  #     - name: Build linux-musl-x64 binary
-  #       run: dotnet publish -c Release -r linux-musl-x64 -p:PublishSingleFile=true --self-contained true
+      - name: Build linux-musl-x64 binary
+        run: dotnet publish -c Release -r linux-musl-x64 -p:PublishSingleFile=true --self-contained true
 
-  #     - name: Print version info
-  #       run: bin/Release/*/linux-musl-x64/publish/lvfucs --version
-
-  #     - name: Create Release
-  #       id: create_release
-  #       uses: softprops/action-gh-release@v1
-  #       with:
-  #         token: ${{ secrets.GITHUB_TOKEN }}
-  #         name: Release ${{ steps.version.outputs.version }}
-  #         tag_name: v${{ steps.version.outputs.version }}
-  #         files: bin/Release/*/linux-musl-x64/publish/lvfucs
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: Release ${{ steps.version.outputs.version }}
+          tag_name: v${{ steps.version.outputs.version }}
+          files: bin/Release/*/linux-musl-x64/publish/lvfucs
