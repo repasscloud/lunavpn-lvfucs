@@ -54,3 +54,44 @@ jobs:
       
       - name: Test
         run: bin/Release/*/linux-musl-x64/publish/lvfucs --help
+  
+  release:
+    runs-on: ubuntu-latest
+    needs: dotnet-6-linux-musl
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x
+      
+      - name: Read version_info
+        id: version
+        run: |
+          VERSION_INFO=$(cat version_info)
+          echo "Version Info: $VERSION_INFO"
+          echo "::set-output name=version::$VERSION_INFO"
+
+      - name: Update version in .cs files
+        run: |
+          find . -type f -name "*.cs" -exec sed -i "s/vX\.X\.X/v${{ steps.read-version.outputs.version }}/g" {} +
+
+      - name: Restore dependencies
+        run: dotnet restore
+    
+      - name: Build linux-musl-x64 binary
+        run: dotnet publish -c Release -r linux-musl-x64 -p:PublishSingleFile=true --self-contained true
+
+      - name: Print version info
+        run: bin/Release/*/linux-musl-x64/publish/lvfucs --version
+
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: Release ${{ steps.version.outputs.version }}
+          tag_name: v${{ steps.version.outputs.version }}
+          files: bin/Release/*/linux-musl-x64/publish/lvfucs
