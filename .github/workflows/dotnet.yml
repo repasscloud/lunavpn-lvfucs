@@ -52,6 +52,9 @@ jobs:
       - name: Build linux-musl-x64 binary
         run: dotnet publish -c Release -r linux-musl-x64 -p:PublishSingleFile=true --self-contained true
       
+      - name: Find
+        run: find . -name "lvfucs" -type f
+
       - name: Test
         run: bin/Release/*/linux-musl-x64/publish/lvfucs --help
   
