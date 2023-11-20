@@ -6,7 +6,7 @@ dotnet publish -c Release -p:PublishSingleFile=true --self-contained true
 #dotnet publish -c Release -r linux-x64 -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true
 
 # Run help
-bin/Release/net6.0/linux-x64/publish/lvfucs --help
+bin/Release/net6.0/*/publish/lvfucs --help
 
 # Run version
-bin/Release/net6.0/linux-x64/publish/lvfucs --version
+bin/Release/net6.0/*/publish/lvfucs --version

@@ -8,15 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Core\" />
-    <None Remove="Helper\" />
-    <None Remove="Core\Utilities\" />
-    <None Remove="Core\Models\" />
-    <None Remove="Core\Utilities\SquidProxy\" />
-    <None Remove="Core\Utilities\Wireguard\" />
-    <None Remove="Core\Utilities\SquidWireguard\" />
-    <None Remove="Core\Utilities\Converter\" />
-    <None Remove="Core\Utilities\Producer\" />
+    <None Remove="README.md" />
+    <None Remove="VERSION_INFO" />
+    <None Remove=".gitignore" />
+    <None Remove="build.sh" />
+    <None Remove="Dockerfile" />
+    <None Remove="LICENSE" />
+    <None Remove="CHANGELOG.md" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core\" />
