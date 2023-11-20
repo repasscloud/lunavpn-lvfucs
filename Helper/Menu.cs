@@ -5,9 +5,10 @@
 		public static void PrintHelp()
 		{
             Console.WriteLine("###################################################");
-            Console.WriteLine("#              LunaVPN fu vX.X.X                  #");
+            Console.WriteLine("#             LunaVPN fu vX.X.X C#                #");
             Console.WriteLine("###################################################\n");
             Console.WriteLine("Welcome to LunaVPN fu - Your Functioning Unit for LunaVPN needs!");
+            Console.WriteLine("C# Edition");
             Console.WriteLine("Copyright © RePass Cloud Pty Ltd 2023\n");
             Console.WriteLine("Usage: LunaVPN_fu [-v] | [-h] | [-g <path_to_output.json>]\n");
             Console.WriteLine("  -v|--version                                Display version information");
@@ -28,7 +29,7 @@
             Console.WriteLine("###################################################\n");
             Console.WriteLine("Welcome to LunaVPN fu - Your Functioning Unit for networking needs!");
             Console.WriteLine("C# Edition");
-            Console.WriteLine("Copyright © RePass Cloud Pty Ltd 2023\n\n");
+            Console.WriteLine("Copyright © RePass Cloud Pty Ltd 2023\n");
             Console.WriteLine("LunaVPN fu vX.X.X");
         }
     }
