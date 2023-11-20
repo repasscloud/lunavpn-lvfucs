@@ -6,7 +6,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
  
 ## [1.0.4] - 2023-11-20
- 
+
+### Added
+- Arg `-qv` prints version number only
+
 ### Changed
 
 - Htpasswd generation
