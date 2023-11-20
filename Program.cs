@@ -33,7 +33,7 @@ namespace lvfucs
                     break;
 
                 case 2:
-                    Console.WriteLine("Two arguments provided.");
+                    //Console.WriteLine("Two arguments provided.");
                     // Access the arguments with args[0] and args[1]
 
                     switch (args[0].ToLower())

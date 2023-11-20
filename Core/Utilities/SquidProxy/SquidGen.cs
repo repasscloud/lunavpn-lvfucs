@@ -53,15 +53,15 @@ namespace lvfucs.Core.Utilities.SquidProxy
             process.Start();
 
             // Read the output and error streams
-            string output = process.StandardOutput.ReadToEnd();
-            string error = process.StandardError.ReadToEnd();
+            // string output = process.StandardOutput.ReadToEnd();
+            // string error = process.StandardError.ReadToEnd();
 
             // Wait for the process to exit
             process.WaitForExit();
 
             // Handle the output and error as needed
-            Console.WriteLine("Output: " + output);
-            Console.WriteLine("Error: " + error);
+            // Console.WriteLine("Output: " + output);
+            // Console.WriteLine("Error: " + error);
 
             // write to squidCredsPath
             try
