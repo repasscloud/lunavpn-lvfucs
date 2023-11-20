@@ -43,7 +43,7 @@
 
         public static void PrintVersionSmall()
         {
-            Console.WriteLine(version);
+            Console.WriteLine(version.Replace("v",""));
         }
     }
 }
