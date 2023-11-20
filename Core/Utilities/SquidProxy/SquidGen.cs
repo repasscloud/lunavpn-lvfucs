@@ -38,10 +38,10 @@ namespace lvfucs.Core.Utilities.SquidProxy
 			string htpasswdPath = Path.Combine(outputDir, "htpasswd");
 
             // Construct the htpasswd command
-            string command = $"/usr/bin/htpasswd -cb {htpasswdPath} {username} {password}";
+            string command = $"-cb {htpasswdPath} {username} {password}";
 
             // Set up the process start info
-            ProcessStartInfo psi = new ProcessStartInfo("sh", $"-c \"{command}\"");
+            ProcessStartInfo psi = new ProcessStartInfo("/usr/bin/htpasswd", command);
             psi.RedirectStandardOutput = true;
             psi.RedirectStandardError = true;
             psi.UseShellExecute = false;
