@@ -13,7 +13,7 @@ namespace lvfucs
             switch (numberOfArguments)
             {
                 case 1:
-                    Console.WriteLine("One argument provided.");
+                    //Console.WriteLine("One argument provided.");
                     switch (args[0].ToLower())
                     {
                         case "-h":
@@ -26,6 +26,10 @@ namespace lvfucs
                             Menu.PrintVersion();
                             break;
 
+                        case "-qv":
+                            Menu.PrintVersionSmall();
+                            break;
+
                         default:
                             Console.WriteLine("Incorrect parameters passed. Use '-h' for help.");
                             break;
@@ -35,7 +39,6 @@ namespace lvfucs
                 case 2:
                     //Console.WriteLine("Two arguments provided.");
                     // Access the arguments with args[0] and args[1]
-
                     switch (args[0].ToLower())
                     {
                         case "-gj":
