@@ -18,6 +18,24 @@ LunaVPN-fucs is your tool for creating a JSON file containing the server name an
 
 The application relies on Microsoft's .NET Framework.
 
+### Alpine Linux
+
+If you are using Alpine Linux, make sure to have either `icu-dev` or both `icu-data-full` and `icu-libs` installed. These packages are necessary for proper functioning. You can install them using the package manager for Alpine, such as `apk`.
+
+#### Install icu-dev
+
+```bash
+apk add --no-cache icu-dev
+```
+
+#### Install icu-data-full and icu-libs
+
+```bash
+apk add --no-cache icu-data-full icu-libs
+```
+
+These packages provide the necessary ICU (International Components for Unicode) libraries that the application requires.
+
 ## Usage
 
 Discover LunaVPN fu's features:
