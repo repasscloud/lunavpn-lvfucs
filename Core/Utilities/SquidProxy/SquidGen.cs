@@ -32,7 +32,7 @@ namespace lvfucs.Core.Utilities.SquidProxy
 			}
 
 			// set squid.creds path
-			string squidCredsPath = Path.Combine(outputDir, "squid.conf");
+			string squidCredsPath = Path.Combine(outputDir, "squid.creds");
 
 			// set squid htpasswd
 			string htpasswdPath = Path.Combine(outputDir, "passwd");
