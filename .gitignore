@@ -9,6 +9,7 @@
 *.user
 *.userosscache
 *.sln.docstates
+do.sh
 
 # macOS .DS_Store
 .DS_Stored
