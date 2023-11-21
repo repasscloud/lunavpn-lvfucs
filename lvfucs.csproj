@@ -16,6 +16,7 @@
     <None Remove="LICENSE" />
     <None Remove="CHANGELOG.md" />
     <None Remove="update_version.sh" />
+    <None Remove="do.sh" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core\" />

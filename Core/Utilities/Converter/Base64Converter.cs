@@ -1,7 +1,7 @@
 ﻿namespace lvfucs.Core.Utilities.Converter
 {
-	public class Base64Coder
-	{
+    public class Base64Coder
+    {
         /// <summary>
         /// Encodes a file to base64 string
         /// </summary>

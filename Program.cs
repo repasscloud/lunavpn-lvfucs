@@ -1,5 +1,6 @@
 ﻿using lvfucs.Core.Utilities;
 using lvfucs.Core.Utilities.SquidProxy;
+using lvfucs.Core.Utilities.Wireguard;
 using lvfucs.Helper;
 
 namespace lvfucs
@@ -13,7 +14,6 @@ namespace lvfucs
             switch (numberOfArguments)
             {
                 case 1:
-                    //Console.WriteLine("One argument provided.");
                     switch (args[0].ToLower())
                     {
                         case "-h":
@@ -37,7 +37,6 @@ namespace lvfucs
                     break;
 
                 case 2:
-                    //Console.WriteLine("Two arguments provided.");
                     // Access the arguments with args[0] and args[1]
                     switch (args[0].ToLower())
                     {
@@ -58,12 +57,80 @@ namespace lvfucs
                     break;
 
                 case 6:
-                    Console.WriteLine("Six arguments provided.");
                     // Access the arguments with args[0], args[1], ..., args[5]
+                    string url = null;
+                    string header = null;
+                    string dataFile = null;
+
+                    for (int i = 0; i < args.Length; i++)
+                    {
+                        switch (args[i])
+                        {
+                            case "-u":
+                            case "--url":
+                                if (i + 1 < args.Length)
+                                {
+                                    url = args[i + 1];
+                                    i++;
+                                }
+                                break;
+
+                            case "-h":
+                            case "--header":
+                                if (i + 1 < args.Length)
+                                {
+                                    header = args[i + 1];
+                                    i++;
+                                }
+                                break;
+
+                            case "-d":
+                            case "--data-file":
+                            if (i + 1 < args.Length)
+                                {
+                                    dataFile = args[i + 1];
+                                    i++;
+                                }
+                                break;
+                            
+                            default:
+                                break;
+                        }
+                    }
+
+                    // test all values pass null check
+                    bool allVariablesNotNull = url != null && header != null && dataFile != null;
+
+                    // test dataFile exists
+                    bool dataFileExists = File.Exists(dataFile);
+
+                    // exit strategy
+                    if (!allVariablesNotNull || !dataFileExists)
+                    {
+                        Logger.WriteLog(message: "At least one value is null", type: "Error");
+                        Environment.Exit(1);
+                    }
+
+                    // Check if the path is a valid file path
+                    bool isValidFilePath = Path.IsPathRooted(dataFile) && !string.IsNullOrEmpty(Path.GetFileName(dataFile));
+
+                    // Check if the file has a .json extension
+                    bool hasJsonExtension = Path.GetExtension(dataFile!).Equals(".json", StringComparison.OrdinalIgnoreCase);
+
+                    // run the verification checks too
+                    if (dataFile != null && isValidFilePath && hasJsonExtension)
+                    {
+                        // create the data.json file
+                        WgGen.PeerData(jsonFile: dataFile);
+                    }
+                    else
+                    {
+                        Logger.WriteLog(message: $"File {dataFile} is null, or isValidFilePath is {isValidFilePath}, or hasJsonExtension is {hasJsonExtension}", type: "Error");
+                    }
                     break;
 
                 default:
-                    Console.WriteLine("Invalid number of arguments.");
+                    Logger.WriteLog(message: "Invalid number of arguments.", type: "Debug");
                     break;
             }
         }

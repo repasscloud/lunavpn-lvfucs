@@ -2,8 +2,8 @@
 
 namespace lvfucs.Core.Models
 {
-	public class ProxyPeers
-	{
+    public class ProxyPeers
+    {
         [JsonPropertyName("peer1_png")]
         public string? Peer1Png { get; set; }
         [JsonPropertyName("peer1_conf")]

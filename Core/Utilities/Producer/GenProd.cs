@@ -4,8 +4,8 @@ using lvfucs.Core.Utilities.Converter;
 
 namespace lvfucs.Core.Utilities.Producer
 {
-	public class GenProd
-	{
+    public class GenProd
+    {
         /// <summary>
         /// Generates a ProxyPeers object by encoding the specified PNG and CONF files
         /// for each matched peerX in the given directory.

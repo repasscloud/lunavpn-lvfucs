@@ -7,8 +7,11 @@ namespace lvfucs.Core.Models
         [JsonPropertyName("servername")]
         public string ServerName { get; set; } = null!;
 
-        [JsonPropertyName("public_ip")]
-        public string PublicIP { get; set; } = null!;
+        [JsonPropertyName("ipv4")]
+        public string IPv4 { get; set; } = null!;
+
+        [JsonPropertyName("ipv6")]
+        public string IPv6 { get; set; } = null!;
 
         [JsonPropertyName("server_uuid")]
         public string ServerUUID { get; set; } = null!;

@@ -2,8 +2,8 @@
 
 namespace lvfucs.Core.Models
 {
-	public class SquidCreds
-	{
+    public class SquidCreds
+    {
         [JsonPropertyName("squid_user")]
         public string? SquidUser { get; set; }
 

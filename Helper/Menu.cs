@@ -1,7 +1,7 @@
 ﻿namespace lvfucs.Helper
 {
-	public class Menu
-	{
+    public class Menu
+    {
         private static string version = "vX.X.X";
 
         private static void PrintHeader()
@@ -14,8 +14,8 @@
             Console.WriteLine(padding);
         }
 
-		public static void PrintHelp()
-		{
+        public static void PrintHelp()
+        {
             PrintHeader();
             Console.WriteLine("Welcome to LunaVPN fu - Your Functioning Unit for LunaVPN needs!");
             Console.WriteLine("C# Edition");
@@ -29,7 +29,7 @@
             Console.WriteLine("Usage: LunaVPN_fu [-u <URL> -h <HEADER> -d <path_to_input.json>]\n");
             Console.WriteLine("HTTP POST request");
             Console.WriteLine("  -u|--url <URL>                        Specify the URL for HTTP POST request");
-            Console.WriteLine("  -h|-header <HEADER>                   Specify the header for HTTP POST request");
+            Console.WriteLine("  -h|--header <HEADER>                  Specify the header for HTTP POST request");
             Console.WriteLine("  -d|--data-file <path_to_input.json>   Specify the data file for HTTP POST request\n");
         }
 

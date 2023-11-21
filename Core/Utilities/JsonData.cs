@@ -6,22 +6,22 @@ using lvfucs.Core.Utilities.Producer;
 
 namespace lvfucs.Core.Utilities
 {
-	public class JsonData
-	{
+    public class JsonData
+    {
         public static void GenerateJson(string filePath)
-		{
+        {
             // create empty LunaJson object
             LunaJson lJson = new LunaJson();
 
-			// remove if existing file
-			if (File.Exists(filePath))
-			{
+            // remove if existing file
+            if (File.Exists(filePath))
+            {
                 File.Delete(filePath);
             }
-			else
-			{
-				Console.WriteLine($"Error deleting existing file: {filePath}");
-				Environment.Exit(1);
+            else
+            {
+                Console.WriteLine($"Error deleting existing file: {filePath}");
+                Environment.Exit(1);
             }
 
             // Get hostname

@@ -1,41 +1,42 @@
 ﻿using System.Diagnostics;
 using lvfucs.Core.Utilities.Producer;
+using lvfucs.Helper;
 
 namespace lvfucs.Core.Utilities.SquidProxy
 {
-	public class SquidGen
-	{
-		public static void GenCredentials(string outputDir)
-		{
-			if (!Directory.Exists(outputDir))
-			{
-				try
-				{
-					Directory.CreateDirectory(outputDir);
-				}
-				catch (Exception ex)
-				{
-					Console.WriteLine($"Unable to access/create {outputDir}, Error: {ex.Message}");
-					Environment.Exit(1);
-				}
-			}
+    public class SquidGen
+    {
+        public static void GenCredentials(string outputDir)
+        {
+            if (!Directory.Exists(outputDir))
+            {
+                try
+                {
+                    Directory.CreateDirectory(outputDir);
+                }
+                catch (Exception ex)
+                {
+                    Logger.WriteLog(message: $"Unable to access/create {outputDir}, Error: {ex.Message}", type: "Debug");
+                    Environment.Exit(1);
+                }
+            }
 
-			// Generate Squid Proxy username and password
-			string username = GenProd.GenerateUsername();
-			string password = GenProd.GeneratePassword();
+            // Generate Squid Proxy username and password
+            string username = GenProd.GenerateUsername();
+            string password = GenProd.GeneratePassword();
 
-			// check usernamd and password is safe
-			if (!GenProd.IsSafeInput(input: username) || !GenProd.IsSafeInput(input: password))
-			{
-				Console.WriteLine("Invalid input. Only alphanumeric characters are allowed");
-				Environment.Exit(1);
-			}
+            // check usernamd and password is safe
+            if (!GenProd.IsSafeInput(input: username) || !GenProd.IsSafeInput(input: password))
+            {
+                Logger.WriteLog(message: "Invalid input. Only alphanumeric characters are allowed", type: "Debug");
+                Environment.Exit(1);
+            }
 
-			// set squid.creds path
-			string squidCredsPath = Path.Combine(outputDir, "squid.creds");
+            // set squid.creds path
+            string squidCredsPath = Path.Combine(outputDir, "squid.creds");
 
-			// set squid htpasswd
-			string htpasswdPath = Path.Combine(outputDir, "passwd");
+            // set squid htpasswd
+            string htpasswdPath = Path.Combine(outputDir, "passwd");
 
             // Construct the htpasswd command
             string command = $"-cb {htpasswdPath} {username} {password}";
@@ -72,13 +73,13 @@ namespace lvfucs.Core.Utilities.SquidProxy
                     outFile.Write($"{username}:{password}");
                 }
 
-                Console.WriteLine($"Credentials written to {squidCredsPath}");
+                Logger.WriteLog(message: $"Credentials written to {squidCredsPath}", type: "Debug");
             }
             catch (Exception ex)
             {
-                Console.Error.WriteLine($"Error opening file for writing: {ex.Message}");
+                Logger.WriteLog(message: $"Error opening file for writing: {ex.Message}", type: "Debug");
             }
         }
-	}
+    }
 }
 
