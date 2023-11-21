@@ -10,6 +10,7 @@
 *.userosscache
 *.sln.docstates
 do.sh
+do_not
 
 # macOS .DS_Store
 .DS_Stored

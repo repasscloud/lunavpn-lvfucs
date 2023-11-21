@@ -7,7 +7,7 @@ namespace lvfucs
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             int numberOfArguments = args.Length;
 
@@ -64,7 +64,7 @@ namespace lvfucs
 
                     for (int i = 0; i < args.Length; i++)
                     {
-                        switch (args[i])
+                        switch (args[i].ToLower())
                         {
                             case "-u":
                             case "--url":
@@ -86,7 +86,7 @@ namespace lvfucs
 
                             case "-d":
                             case "--data-file":
-                            if (i + 1 < args.Length)
+                                if (i + 1 < args.Length)
                                 {
                                     dataFile = args[i + 1];
                                     i++;
@@ -102,10 +102,10 @@ namespace lvfucs
                     bool allVariablesNotNull = url != null && header != null && dataFile != null;
 
                     // test dataFile exists
-                    bool dataFileExists = File.Exists(dataFile);
+                    // bool dataFileExists = File.Exists(dataFile);
 
                     // exit strategy
-                    if (!allVariablesNotNull || !dataFileExists)
+                    if (!allVariablesNotNull)
                     {
                         Logger.WriteLog(message: "At least one value is null", type: "Error");
                         Environment.Exit(1);
@@ -113,7 +113,6 @@ namespace lvfucs
 
                     // Check if the path is a valid file path
                     bool isValidFilePath = Path.IsPathRooted(dataFile) && !string.IsNullOrEmpty(Path.GetFileName(dataFile));
-
                     // Check if the file has a .json extension
                     bool hasJsonExtension = Path.GetExtension(dataFile!).Equals(".json", StringComparison.OrdinalIgnoreCase);
 
@@ -121,7 +120,7 @@ namespace lvfucs
                     if (dataFile != null && isValidFilePath && hasJsonExtension)
                     {
                         // create the data.json file
-                        WgGen.PeerData(jsonFile: dataFile);
+                        await WgGen.PeerData(jsonFile: dataFile);
                     }
                     else
                     {

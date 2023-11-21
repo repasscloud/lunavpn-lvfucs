@@ -50,8 +50,7 @@ jobs:
           echo "::set-output name=version::$VERSION_INFO"
 
       - name: Update version in .cs files
-        run: |
-          find . -type f -name "*.cs" -exec sed -i "s/vX\.X\.X/v${{ steps.read-version.outputs.version }}/g" {} +
+        run: ./update_version.sh
       
       - name: Docker build
         run: docker build --no-cache --rm -t your-image-name .
