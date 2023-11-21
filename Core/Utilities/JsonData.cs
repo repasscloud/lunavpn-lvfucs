@@ -69,7 +69,7 @@ namespace lvfucs.Core.Utilities
             }
 
             // assign the early components of the VPS
-            lJson.PublicIP = publicIP;
+            lJson.IPv4= publicIP;
             lJson.ServerName = hostname;
             lJson.ServerName = serverType;
             lJson.ServerUUID = serverUid;

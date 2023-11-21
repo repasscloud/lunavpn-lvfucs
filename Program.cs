@@ -58,9 +58,9 @@ namespace lvfucs
 
                 case 6:
                     // Access the arguments with args[0], args[1], ..., args[5]
-                    string url = null;
-                    string header = null;
-                    string dataFile = null;
+                    string? url = null;
+                    string? header = null;
+                    string? dataFile = null;
 
                     for (int i = 0; i < args.Length; i++)
                     {
