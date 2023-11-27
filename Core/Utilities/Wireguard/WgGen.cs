@@ -54,16 +54,16 @@ namespace lvfucs.Core.Utilities.Wireguard
                                 string mainBody1 = $"Mapped peer{peerNumber} with X={peerNumber}";
                                 Logger.WriteLog(message: mainBody1, type: "Debug");
                                 // read the contents of peerX
-                                proxyPeers.Peer3Conf = File.ReadAllText(Path.Combine(directoryPath, $"peer{peerNumber}", $"peer{peerNumber}.conf"));
-                                proxyPeers.Peer3Png = Png2B64(filePath: Path.Combine(directoryPath, $"peer{peerNumber}", $"peer{peerNumber}.png"));
+                                proxyPeers.Peer1Conf = File.ReadAllText(Path.Combine(directoryPath, $"peer{peerNumber}", $"peer{peerNumber}.conf"));
+                                proxyPeers.Peer1Png = Png2B64(filePath: Path.Combine(directoryPath, $"peer{peerNumber}", $"peer{peerNumber}.png"));
                                 break;
                             case 2:
                                 // Code for X = 2
                                 string mainBody2 = $"Mapped peer{peerNumber} with X={peerNumber}";
                                 Logger.WriteLog(message: mainBody2, type: "Debug");
                                 // read the contents of peerX
-                                proxyPeers.Peer3Conf = File.ReadAllText(Path.Combine(directoryPath, $"peer{peerNumber}", $"peer{peerNumber}.conf"));
-                                proxyPeers.Peer3Png = Png2B64(filePath: Path.Combine(directoryPath, $"peer{peerNumber}", $"peer{peerNumber}.png"));
+                                proxyPeers.Peer2Conf = File.ReadAllText(Path.Combine(directoryPath, $"peer{peerNumber}", $"peer{peerNumber}.conf"));
+                                proxyPeers.Peer2Png = Png2B64(filePath: Path.Combine(directoryPath, $"peer{peerNumber}", $"peer{peerNumber}.png"));
                                 break;
                             case 3:
                                 // Code for X = 3

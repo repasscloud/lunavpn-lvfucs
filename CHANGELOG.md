@@ -5,7 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [1.1.2]
+## [1.2.3] - 2023-11-27
+
+### Fixed
+- Mapped peerX to peer3 for 1..3 in data.json [#9](https://github.com/repasscloud/lunavpn-lvfucs/issues/9)
+
+## [1.1.2] - 2023-11-27
 
 ### Fixed
 - Unable to generate data.json when the peerX values have not been created yet [#8](https://github.com/repasscloud/lunavpn-lvfucs/issues/8)
