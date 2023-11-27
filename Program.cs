@@ -119,6 +119,7 @@ namespace lvfucs
                     // run the verification checks too
                     if (dataFile != null && isValidFilePath && hasJsonExtension)
                     {
+                        await Task.Delay(10000);
                         // create the data.json file
                         await WgGen.PeerData(jsonFile: dataFile);
                     }
