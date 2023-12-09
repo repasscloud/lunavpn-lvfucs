@@ -11,6 +11,7 @@ RUN apk add --no-cache \
     libgcc \
     libintl \
     libstdc++ \
+    libssl3 \
     zlib \
     libunwind
 
