@@ -2,7 +2,7 @@
 {
     public class Menu
     {
-        private static string version = "vX.X.X";
+        private static string version = "v2.0.1";
 
         private static void PrintHeader()
         {
@@ -20,30 +20,22 @@
             Console.WriteLine("Welcome to LunaVPN fu - Your Functioning Unit for LunaVPN needs!");
             Console.WriteLine("C# Edition");
             Console.WriteLine("Copyright © RePass Cloud Pty Ltd 2023\n");
-            Console.WriteLine("Usage: LunaVPN_fu [-v] | [-h] | [-g <path_to_output.json>]\n");
-            Console.WriteLine("  -v|--version                                Display version information");
-            Console.WriteLine("  -qv                                         Display version number only");
-            Console.WriteLine("  -h|--help                                   Display help");
-            Console.WriteLine("  -gj|--generate-json <path_to_output.json>   Generate the JSON file");
-            Console.WriteLine("  -gs|--generate-squid <path_to_output.json>  Generate the Squid Proxy credentials\n");
-            Console.WriteLine("Usage: LunaVPN_fu [-u <URL> -h <HEADER> -d <path_to_input.json>]\n");
-            Console.WriteLine("HTTP POST request");
-            Console.WriteLine("  -u|--url <URL>                        Specify the URL for HTTP POST request");
-            Console.WriteLine("  -h|--header <HEADER>                  Specify the header for HTTP POST request");
-            Console.WriteLine("  -d|--data-file <path_to_input.json>   Specify the data file for HTTP POST request\n");
+            Console.WriteLine("Usage: LunaVPN_fu [-v] | [-h] | [-d <path_to_output.json>]\n");
+            Console.WriteLine("  -v|--version                          Display version");
+            Console.WriteLine("  -h|--help                             Display helop");
+            Console.WriteLine("  -d|--data-file <path_to_output.json>  Generate the JSON file\n");
         }
 
         public static void PrintVersion()
         {
             PrintHeader();
-            Console.WriteLine("Welcome to LunaVPN fu - Your Functioning Unit for networking needs!");
-            Console.WriteLine("C# Edition");
             Console.WriteLine("Copyright © RePass Cloud Pty Ltd 2023\n");
+
         }
 
         public static void PrintVersionSmall()
         {
-            Console.WriteLine(version.Replace("v",""));
+            Console.WriteLine($"{version}\n");
         }
     }
 }
