@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
 
@@ -49,9 +52,6 @@ jobs:
           echo "Version Info: $VERSION_INFO"
           echo "::set-output name=version::$VERSION_INFO"
 
-      - name: Update version in .cs files
-        run: ./update_version.sh
-      
       - name: Docker build
         run: docker build --no-cache --rm -t your-image-name .
 

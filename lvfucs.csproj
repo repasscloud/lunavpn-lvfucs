@@ -17,6 +17,10 @@
     <None Remove="CHANGELOG.md" />
     <None Remove="update_version.sh" />
     <None Remove="do.sh" />
+    <None Remove="Core\V2\" />
+    <None Remove="Core\V2\Models\" />
+    <None Remove="Core\V2\Utility\" />
+    <None Remove="Core\V2\Producer\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core\" />
@@ -24,9 +28,12 @@
     <Folder Include="Core\Utilities\" />
     <Folder Include="Core\Models\" />
     <Folder Include="Core\Utilities\SquidProxy\" />
-    <Folder Include="Core\Utilities\Wireguard\" />
     <Folder Include="Core\Utilities\SquidWireguard\" />
     <Folder Include="Core\Utilities\Converter\" />
     <Folder Include="Core\Utilities\Producer\" />
+    <Folder Include="Core\V2\" />
+    <Folder Include="Core\V2\Models\" />
+    <Folder Include="Core\V2\Utility\" />
+    <Folder Include="Core\V2\Producer\" />
   </ItemGroup>
 </Project>

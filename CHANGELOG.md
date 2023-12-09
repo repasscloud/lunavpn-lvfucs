@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.0.0] - 2023-12-10
+
+### Changed
+- Complete revision of code, now not compatible with any previous versions, used for development with ngrok [#11](https://github.com/repasscloud/lunavpn-lvfucs/issues/11)
+
 ## [1.2.3] - 2023-11-27
 
 ### Fixed
