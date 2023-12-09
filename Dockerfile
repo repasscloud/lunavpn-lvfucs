@@ -10,7 +10,6 @@ RUN apk add --no-cache \
     krb5-libs \
     libgcc \
     libintl \
-    libssl1.1 \
     libstdc++ \
     zlib \
     libunwind
