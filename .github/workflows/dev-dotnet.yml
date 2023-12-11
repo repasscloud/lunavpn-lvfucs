@@ -13,8 +13,8 @@ jobs:
     steps:
       - name: 🛒 Checkout
         uses: actions/checkout@v3
-        
-      - name: 🚀 Set up .NET Core
+
+      - name: 🚀 Setup .NET Core
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
