@@ -75,8 +75,14 @@ namespace lvfucs.Core.V2.Utility
                         // map the proxyPeers values
                         ProxyPeers proxyPeers = GenProd2.GenerateProxyPeers(wgPeersIn: wgPeers, peerNamesIn: peerNames, hostname: hostname, ipv4: publicIP, ipv6: publicIPv6);
 
-                        // write to json output
-                        File.WriteAllText(outPath, JsonSerializer.Serialize(proxyPeers));
+                        // Create JsonSerializerOptions with the desired behavior
+                        var options = new JsonSerializerOptions
+                        {
+                            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+                        };
+
+                        // Serialize your object using the customized options
+                        File.WriteAllText(outPath, JsonSerializer.Serialize(proxyPeers, options));
 
                         // send to the API
                         using (var httpClient = new HttpClient())
