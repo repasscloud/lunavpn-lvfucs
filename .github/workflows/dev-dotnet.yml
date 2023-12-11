@@ -1,0 +1,52 @@
+name: Build with .NET Versions
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dotnet-version: ["6.0.x", "7.0.x", "8.0.x"]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+
+      - name: Restore dependencies
+        run: dotnet restore
+    
+      - name: Build
+        run: dotnet build --no-restore
+    
+      - name: Build linux-x64 binary
+        run: dotnet publish -c Release -r linux-x64 -p:PublishSingleFile=true --self-contained true
+
+      - name: Build linux-musl-x64 binary
+        run: dotnet publish -c Release -r linux-musl-x64 -p:PublishSingleFile=true --self-contained true
+
+
+  pull_request:
+    runs-on: ubuntu-latest
+
+    steps:
+        - name: Checkout repository
+          uses: actions/checkout@v3
+
+        - name: Create PR to main
+          if: success() && github.event_name == 'push' && github.ref != 'refs/heads/main'
+          run: |
+            git config user.name "GitHub Action"
+            git config user.email "action@github.com"
+            git checkout -b pull-request-branch
+            git push origin pull-request-branch
+            hub pull-request -b main -h pull-request-branch -m "Automated Pull Request"
