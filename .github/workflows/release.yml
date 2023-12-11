@@ -1,0 +1,39 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🛒 Checkout
+        uses: actions/checkout@v2
+      
+      - name: 🚀 Setup .NET Core
+        uses: actions/setup-dotnet@v7
+        with:
+          dotnet-version: 6.0.x
+      
+      - name: 👓 Read version_info
+        id: version
+        run: |
+          VERSION_INFO=$(cat VERSION_INFO)
+          echo "Version Info: $VERSION_INFO"
+          echo "::set-output name=version::$VERSION_INFO"
+
+      - name: 🧶 Restore dependencies
+        run: dotnet restore
+    
+      - name: 🏗️ Build linux-musl-x64 binary
+        run: dotnet publish -c Release -r linux-musl-x64 -p:PublishSingleFile=true --self-contained true
+
+      - name: 📦 Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: bin/Release/*/linux-musl-x64/publish/lvfucs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
