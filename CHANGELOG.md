@@ -5,10 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.0.2] - 2023-12-11
+
+### Fixed
+- Removed all null values from `data.json` output [#13](https://github.com/repasscloud/lunavpn-lvfucs/issues/13)
+
+### Changed
+- Message when using `-h` or `--help` at call [#14](https://github.com/repasscloud/lunavpn-lvfucs/issues/14)
+
 ## [2.0.1] - 2023-12-10
 
 ### Fixed
-- `libssl1.1` replaced by `libssl3`
+- `libssl1.1` replaced by `libssl3` _(this is for the building environment, not part of the code)_
 
 ## [2.0.0] - 2023-12-10
 

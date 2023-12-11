@@ -21,6 +21,8 @@
     <None Remove="Core\V2\Models\" />
     <None Remove="Core\V2\Utility\" />
     <None Remove="Core\V2\Producer\" />
+    <None Remove="do_not" />
+    <None Remove="get_latest.sh" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core\" />
