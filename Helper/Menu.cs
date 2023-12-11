@@ -2,7 +2,7 @@
 {
     public class Menu
     {
-        private static string version = "v2.0.1";
+        private static string version = "v2.0.2";
 
         private static void PrintHeader()
         {
@@ -17,8 +17,7 @@
         public static void PrintHelp()
         {
             PrintHeader();
-            Console.WriteLine("Welcome to LunaVPN fu - Your Functioning Unit for LunaVPN needs!");
-            Console.WriteLine("C# Edition");
+            Console.WriteLine("Welcome to LunaVPN fu - C# Edition");
             Console.WriteLine("Copyright © RePass Cloud Pty Ltd 2023\n");
             Console.WriteLine("Usage: LunaVPN_fu [-v] | [-h] | [-d <path_to_output.json>]\n");
             Console.WriteLine("  -v|--version                          Display version");

@@ -12,4 +12,4 @@ bin/Release/net6.0/*/publish/lvfucs --help
 bin/Release/net6.0/*/publish/lvfucs --version
 
 # Run quiet version
-bin/Release/net6.0/*/publish/lvfucs -qv
+bin/Release/net6.0/*/publish/lvfucs -v
