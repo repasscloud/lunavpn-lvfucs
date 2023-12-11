@@ -36,11 +36,17 @@ jobs:
 
 
   pull_request:
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
         - name: Checkout repository
           uses: actions/checkout@v3
+
+        - name: Install hub
+          run: |
+            sudo apt-get update
+            sudo apt-get install hub -y
 
         - name: Create PR to main
           if: success() && github.event_name == 'push' && github.ref != 'refs/heads/main'
