@@ -13,17 +13,10 @@ jobs:
         uses: actions/checkout@v2
       
       - name: 🚀 Setup .NET Core
-        uses: actions/setup-dotnet@v7
+        uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 6.0.x
       
-      - name: 👓 Read version_info
-        id: version
-        run: |
-          VERSION_INFO=$(cat VERSION_INFO)
-          echo "Version Info: $VERSION_INFO"
-          echo "::set-output name=version::$VERSION_INFO"
-
       - name: 🧶 Restore dependencies
         run: dotnet restore
     
@@ -35,5 +28,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: bin/Release/*/linux-musl-x64/publish/lvfucs
+          tag_name: ${{ github.ref }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
