@@ -1,58 +1,58 @@
-name: Build with .NET Versions
+name: .NET Build (not main)
 
 on:
   push:
     branches-ignore:
       - main
-
 jobs:
-
   build:
-    runs-on: ubuntu-latest
     strategy:
       matrix:
-        dotnet-version: ["6.0.x", "7.0.x", "8.0.x"]
-
+        dotnet-version: [6.0.x, 7.0.x, 8.0.x]
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: 🛒 Checkout
         uses: actions/checkout@v3
-
-      - name: Setup .NET
+        
+      - name: 🚀 Set up .NET Core
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
-
-      - name: Restore dependencies
+      
+      - name: 🧶 Restore dependencies
         run: dotnet restore
-    
-      - name: Build
+
+      - name: 🏗️ Build
         run: dotnet build --no-restore
-    
-      - name: Build linux-x64 binary
+
+      - name: 🏗️ Build linux-x64 binary
         run: dotnet publish -c Release -r linux-x64 -p:PublishSingleFile=true --self-contained true
 
-      - name: Build linux-musl-x64 binary
+      - name: 🏗️ Build linux-musl-x64 binary
         run: dotnet publish -c Release -r linux-musl-x64 -p:PublishSingleFile=true --self-contained true
 
-
-  pull_request:
-    needs: build
+  auto-pr:
+    needs:
+      - build
     runs-on: ubuntu-latest
-
     steps:
-        - name: Checkout repository
-          uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+      - name: Get current branch name
+        id: branch
+        run: echo "::set-output name=branch::$(echo $GITHUB_REF | sed 's/refs\/heads\///')"
+      - name: Create pull request
+        run: |
+          branchName="${{ steps.branch.outputs.branch }}"
+          gh pr create -B main -H $branchName --title "Auto PR $branchName into main" --body "Automatically created by gh-actions."
+        env:
+          GH_TOKEN: ${{ github.token }}
 
-        - name: Install hub
-          run: |
-            sudo apt-get update
-            sudo apt-get install hub -y
-
-        - name: Create PR to main
-          if: success() && github.event_name == 'push' && github.ref != 'refs/heads/main'
-          run: |
-            git config user.name "GitHub Action"
-            git config user.email "action@github.com"
-            git checkout -b pull-request-branch
-            git push origin pull-request-branch
-            hub pull-request -b main -h pull-request-branch -m "Automated Pull Request"
+  auto-merge:
+    needs: [ "auto-pr" ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: merge pull request
+        run: gh pr merge --merge
+        env:
+          GH_TOKEN: ${{ github.token }}
