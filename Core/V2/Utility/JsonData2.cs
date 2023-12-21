@@ -5,12 +5,13 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using lvfucs.Core.V2.Models;
 using lvfucs.Core.V2.Producer;
+using lvfucs.Helper;
 
 namespace lvfucs.Core.V2.Utility
 {
 	public class JsonData2
 	{
-		public static async Task GenerateJsonAsync(string outPath)
+		public static async Task GenerateJsonAsync(string outPath, string apiEndpoint, string bearerToken)
 		{
             // variables we need
             string serverType = "/app/lunavpn/server.type";
@@ -88,10 +89,10 @@ namespace lvfucs.Core.V2.Utility
                         using (var httpClient = new HttpClient())
                         {
                             // Create and configure an HTTP request
-                            var httpRequest = new HttpRequestMessage(HttpMethod.Post, "https://a661-58-110-79-78.ngrok-free.app/api/WgPeer");
+                            var httpRequest = new HttpRequestMessage(HttpMethod.Post, apiEndpoint);
 
                             // Add the Bearer token to the request header
-                            httpRequest.Headers.Add("Authorization", "Bearer woGDRkcBp+fnjaiuohGXOWcqKSokvUoLgnEtL+z3fEaNI7cpzc9mLykwftXB6tOD");
+                            httpRequest.Headers.Add("Authorization", $"Bearer {bearerToken}");
 
                             // Configure the JSON serializer to ignore null values
                             var jsonOptions = new JsonSerializerOptions
@@ -114,12 +115,12 @@ namespace lvfucs.Core.V2.Utility
                             {
                                 // Handle a successful response
                                 var responseContent = await response.Content.ReadAsStringAsync();
-                                Console.WriteLine("HTTP Request Successful. Response: " + responseContent);
+                                Logger.WriteLog(message: $"HTTP Request Successful. Response: {responseContent}", type: "Info");
                             }
                             else
                             {
                                 // Handle an unsuccessful response
-                                Console.WriteLine("HTTP Request Failed. Status Code: " + (int)response.StatusCode);
+                                Logger.WriteLog(message: $"HTTP Request Failed. Status Code: {(int)response.StatusCode}", type: "Error");
                             }
                         }
                     }
