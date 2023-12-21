@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.1.0] - 2023-12-22
+- Args passed at args[2] is apiEndpoint, args[3] is bearerToken [#21](https://github.com/repasscloud/lunavpn-lvfucs/issues/21)
+
 ## [2.0.2] - 2023-12-11
 
 ### Fixed
