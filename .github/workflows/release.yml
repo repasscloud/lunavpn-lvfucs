@@ -23,11 +23,15 @@ jobs:
       - name: 🏗️ Build linux-musl-x64 binary
         run: dotnet publish -c Release -r linux-musl-x64 -p:PublishSingleFile=true --self-contained true
 
+      - name: 📖 Read VERSION_INFO
+        id: version_info
+        run: echo "VERSION=$(cat VERSION_INFO)" >> $GITHUB_ENV
+
       - name: 📦 Create Release
         id: create_release
         uses: softprops/action-gh-release@v1
         with:
           files: bin/Release/*/linux-musl-x64/publish/lvfucs
-          tag_name: ${{ github.ref }}
+          tag_name: "Release ${{ env.VERSION }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
