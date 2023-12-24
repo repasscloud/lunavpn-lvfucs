@@ -85,42 +85,46 @@ namespace lvfucs.Core.V2.Utility
                         // Serialize your object using the customized options
                         File.WriteAllText(outPath, JsonSerializer.Serialize(proxyPeers, options));
 
-                        // send to the API
-                        using (var httpClient = new HttpClient())
+                        // only run if apiEndpoint is not "x" which comes from using "--save" or "-s" parameter
+                        if (apiEndpoint != "x")
                         {
-                            // Create and configure an HTTP request
-                            var httpRequest = new HttpRequestMessage(HttpMethod.Post, apiEndpoint);
-
-                            // Add the Bearer token to the request header
-                            httpRequest.Headers.Add("Authorization", $"Bearer {bearerToken}");
-
-                            // Configure the JSON serializer to ignore null values
-                            var jsonOptions = new JsonSerializerOptions
+                            // Initialize HttpClient
+                            using (var httpClient = new HttpClient())
                             {
-                                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull, // Exclude properties with null values
-                                WriteIndented = true // For pretty-printing the JSON
-                            };
+                                // Create and configure an HTTP request
+                                var httpRequest = new HttpRequestMessage(HttpMethod.Post, apiEndpoint);
 
-                            // Serialize the proxyPeers object to JSON with null values ignored
-                            var jsonPayload = JsonSerializer.Serialize(proxyPeers, jsonOptions);
+                                // Add the Bearer token to the request header
+                                httpRequest.Headers.Add("Authorization", $"Bearer {bearerToken}");
 
-                            // Set the JSON payload as the request content
-                            httpRequest.Content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
+                                // Configure the JSON serializer to ignore null values
+                                var jsonOptions = new JsonSerializerOptions
+                                {
+                                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+                                    WriteIndented = true
+                                };
 
-                            // Send the HTTP request and get the response
-                            var response = await httpClient.SendAsync(httpRequest);
+                                // Serialize the proxyPeers object to JSON with null values ignored
+                                var jsonPayload = JsonSerializer.Serialize(proxyPeers, jsonOptions);
 
-                            // Check and handle the response as needed
-                            if (response.IsSuccessStatusCode)
-                            {
-                                // Handle a successful response
-                                var responseContent = await response.Content.ReadAsStringAsync();
-                                Logger.WriteLog(message: $"HTTP Request Successful. Response: {responseContent}", type: "Info");
-                            }
-                            else
-                            {
-                                // Handle an unsuccessful response
-                                Logger.WriteLog(message: $"HTTP Request Failed. Status Code: {(int)response.StatusCode}", type: "Error");
+                                // Set the JSON payload as the request content
+                                httpRequest.Content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
+
+                                // Send the HTTP request and get the response
+                                var response = await httpClient.SendAsync(httpRequest);
+
+                                // Check and handle the response as needed
+                                if (response.IsSuccessStatusCode)
+                                {
+                                    // Handle a successful response
+                                    var responseContent = await response.Content.ReadAsStringAsync();
+                                    Logger.WriteLog(message: $"HTTP Request Successful. Response: {responseContent}", type: "Info");
+                                }
+                                else
+                                {
+                                    // Handle an unsuccessful response
+                                    Logger.WriteLog(message: $"HTTP Request Failed. Status Code: {(int)response.StatusCode}", type: "Error");
+                                }
                             }
                         }
                     }
