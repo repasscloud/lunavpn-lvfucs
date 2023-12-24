@@ -40,6 +40,11 @@ namespace lvfucs
                         case "--data-file":
                             await JsonData2.GenerateJsonAsync(outPath: args[1].ToLower(), apiEndpoint: args[2].ToLower(), bearerToken: args[3]);
                             break;
+
+                        case "-s":
+                        case "--save":
+                            await JsonData2.GenerateJsonAsync(outPath: args[1].ToLower(), apiEndpoint: "x", bearerToken: "x");
+                            break;
                     }
                     break;
 

@@ -2,7 +2,7 @@
 {
     public class Menu
     {
-        private static string version = "v2.0.2";
+        private static string version = "v2.1.1";
 
         private static void PrintHeader()
         {
