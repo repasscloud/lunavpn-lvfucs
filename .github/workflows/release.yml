@@ -32,6 +32,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: bin/Release/*/linux-musl-x64/publish/lvfucs
-          tag_name: "Release ${{ env.VERSION }}"
+          tag_name: "${{ env.VERSION }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
