@@ -33,19 +33,24 @@ namespace lvfucs
                     }
                     break;
 
-                case 2:
-                    switch (args[0].ToLower())
-                    {
-                        case "-d":
-                        case "--data-file":
-                            await JsonData2.GenerateJsonAsync(outPath: args[1].ToLower(), apiEndpoint: args[2].ToLower(), bearerToken: args[3]);
-                            break;
+                case >= 2:
 
-                        case "-s":
-                        case "--save":
-                            await JsonData2.GenerateJsonAsync(outPath: args[1].ToLower(), apiEndpoint: "x", bearerToken: "x");
-                            break;
+                    var options = CommandLineParser.ParseArguments(args);
+
+                    if (!string.IsNullOrEmpty(options.SaveFile))
+                    {
+                        await JsonData2.GenerateJsonAsync(outPath: options.SaveFile.ToLower());
                     }
+
+                    if (!string.IsNullOrEmpty(options.DataFile) && !string.IsNullOrEmpty(options.ApiEndpoint) && !string.IsNullOrEmpty(options.BearerToken))
+                    {
+                        await JsonData2.GenerateJsonPostAsync(outPath: options.DataFile.ToLower(), apiEndpoint: options.ApiEndpoint.ToLower(), bearerToken: options.BearerToken);
+                    }
+                    else
+                    {
+                        Logger.WriteLog(message: "Incorrect arguments provided, possibly?", type: "Debug");
+                    }
+
                     break;
 
                 default:
