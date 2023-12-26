@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.0.0] - 2023-12-26
+
+### Fixed
+- Args passed causing issues [#26](https://github.com/repasscloud/lunavpn-lvfucs/issues/26)
+- Update version number
+- Add required classes for args parser
+
 ## [2.1.1] - 2023-12-25
 
 ### Added

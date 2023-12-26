@@ -22,11 +22,11 @@ jobs:
           echo "::set-output name=version::$VERSION_INFO"
 
       - name: 🐳🏗️ Docker build
-        run: docker build --no-cache --rm -t your-image-name .
+        run: docker build --no-cache --rm -t lvfucs-cli .
 
       - name: 📦 dotnet publish
         run: |
-          docker run --rm -v "$PWD:/app" your-image-name dotnet publish -c Release -r linux-musl-x64 -p:PublishSingleFile=true --self-contained true
+          docker run --rm -v "$PWD:/app" lvfucs-cli dotnet publish -c Release -r linux-musl-x64 -p:PublishSingleFile=true --self-contained true
 
       - name: ℹ️ Show version
-        run: docker run --rm -v "$PWD:/app" your-image-name /app/bin/Release/net6.0/linux-musl-x64/publish/lvfucs --version
+        run: docker run --rm -v "$PWD:/app" lvfucs-cli /app/bin/Release/net6.0/linux-musl-x64/publish/lvfucs --version

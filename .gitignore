@@ -11,6 +11,8 @@
 *.sln.docstates
 do.sh
 do_not
+gen.ps1
+test.html
 
 # macOS .DS_Store
 .DS_Stored
