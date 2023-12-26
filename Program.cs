@@ -7,6 +7,8 @@ namespace lvfucs
     {
         static async Task Main(string[] args)
         {
+            await Task.Delay(15000);
+
             int numberOfArguments = args.Length;
 
             switch (numberOfArguments)
@@ -46,7 +48,7 @@ namespace lvfucs
                     {
                         await JsonData2.GenerateJsonPostAsync(outPath: options.DataFile.ToLower(), apiEndpoint: options.ApiEndpoint.ToLower(), bearerToken: options.BearerToken);
                     }
-                    else
+                    if (string.IsNullOrEmpty(options.DataFile) && string.IsNullOrEmpty(options.SaveFile))
                     {
                         Logger.WriteLog(message: "Incorrect arguments provided, possibly?", type: "Debug");
                     }
